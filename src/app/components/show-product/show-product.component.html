@@ -1,0 +1,17 @@
+<clr-datagrid>
+  <clr-dg-column>ID</clr-dg-column>
+  <clr-dg-column>Nom</clr-dg-column>
+  <clr-dg-column>Description</clr-dg-column>
+  <clr-dg-column>Prix</clr-dg-column>
+  <clr-dg-column>Stock</clr-dg-column>
+
+  <clr-dg-row *ngFor="let product of products">
+    <clr-dg-cell>{{product.ProductId}}</clr-dg-cell>
+    <clr-dg-cell>{{product.name}}</clr-dg-cell>
+    <clr-dg-cell>{{product.description | date}}</clr-dg-cell>
+    <clr-dg-cell>€ {{product.price}}</clr-dg-cell>
+    <clr-dg-cell>{{product.stock}} en stock</clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>{{products.length}} Produits</clr-dg-footer>
+</clr-datagrid>
