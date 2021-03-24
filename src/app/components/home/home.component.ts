@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     this.productSub = this.productService.getProduct()
       .subscribe((data:Response) => {
         this.products=data.result;
+        console.log(this.products);
       }, () => {
         console.log('Erreur');
       })

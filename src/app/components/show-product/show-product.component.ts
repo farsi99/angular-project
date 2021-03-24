@@ -10,6 +10,7 @@ import { Product } from 'src/app/models/product';
 export class ShowProductComponent implements OnInit {
 
   @Input() products:Product[];
+  productModalOpen:boolean=false;
 
   constructor() { }
 
@@ -18,4 +19,12 @@ export class ShowProductComponent implements OnInit {
     console.log('Produits: ',this.products)
   }
 
+  onEdit(product):void{
+    this.productModalOpen=true;
+  }
+  onDelete(product):void{}
+
+  AddProduct():void{
+    this.productModalOpen=true;
+  }
 }

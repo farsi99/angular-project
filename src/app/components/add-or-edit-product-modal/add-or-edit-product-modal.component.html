@@ -1,1 +1,77 @@
-<p>add-or-edit-product-modal works!</p>
+<clr-wizard #wizard [clrWizardOpen]="true">
+  <clr-wizard-title>{{product? 'Modifier un produit':'ajouter un produit'}}</clr-wizard-title>
+
+
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Choisir une catégorie</ng-template>
+    <ng-template clrPageNavTitle> Etape 1 </ng-template>
+    <div class="clr-row category">
+      <div class="clr-col-md-6" *ngFor="let category of categories">
+        <a href="javascript:void(0)" class="card clickable" (click)="slectCategory(category.idCategory)" [ngClass]="{'active': category.idCategory == idCategory }">
+          <div class="card-block">
+            <p class="card-text">
+              {{category.name}}
+              <clr-icon [attr.shape]="category.icon"></clr-icon>
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <ng-template clrPageButtons>
+      <clr-wizard-button [type]="'cancel'">Anuler</clr-wizard-button>
+      <clr-wizard-button [type]="'previous'">Précedent</clr-wizard-button>
+      <clr-wizard-button [type]="'next'">Suivant</clr-wizard-button>
+    </ng-template>
+  </clr-wizard-page>
+
+  <form [formGroup]="productForm">
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Info produit</ng-template>
+      <ng-template clrPageNavTitle> Etape 2 </ng-template>
+      <div formGroupName="productInfos">
+
+        <clr-input-container>
+          <label for="name">Nom d'un produit</label>
+          <input id="name" placeholder="Enter your first name" clrInput formControlName="name" name="name"  />
+        </clr-input-container>
+
+        <clr-textarea-container>
+          <label for="description">Description</label>
+          <textarea id="description" clrTextarea formControlName="description" name="description"></textarea>
+        </clr-textarea-container>
+        <clr-input-container>
+          <label for="price">Prix</label>
+          <input id="price" clrInput placeholder="Prix du produit" name="price" formControlName="price" />
+        </clr-input-container>
+        <clr-input-container>
+          <label for="stock">Stock</label>
+          <input id="stock" clrInput placeholder="stock du produit" name="stock" formControlName="stock" />
+        </clr-input-container>
+      </div>
+     <ng-template clrPageButtons>
+        <clr-wizard-button [type]="'cancel'">Anuler</clr-wizard-button>
+        <clr-wizard-button [type]="'previous'">Précedent</clr-wizard-button>
+        <clr-wizard-button [type]="'next'" [clrWizardButtonDisabled]="isProductInfoInvalid">Suivant</clr-wizard-button>
+      </ng-template>
+
+    </clr-wizard-page>
+
+    <clr-wizard-page>
+      <ng-template clrPageTitle>Ajouter une image</ng-template>
+      <ng-template clrPageNavTitle> Etape 3 </ng-template>
+      <div formGroupName="illustration">
+        <clr-input-container>
+          <label>Image</label>
+          <input clrInput type="file" placeholder="image du produit" name="image" formControlName="image" />
+        </clr-input-container>
+      </div>
+      <ng-template clrPageButtons>
+        <clr-wizard-button [type]="'cancel'">Anuler</clr-wizard-button>
+        <clr-wizard-button [type]="'previous'">Précedent</clr-wizard-button>
+        <clr-wizard-button [type]="'finish'" [clrWizardButtonDisabled]="isIllustrationInvalid">Terminer</clr-wizard-button>
+
+      </ng-template>
+    </clr-wizard-page>
+  </form>
+
+</clr-wizard>

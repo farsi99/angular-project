@@ -1,17 +1,29 @@
+<h1>Liste des produits</h1>
+<button class="btn btn-outline btn-sm" (click)="AddProduct()">Ajouter un produit</button>
+<app-add-or-edit-product-modal *ngIf="productModalOpen"></app-add-or-edit-product-modal>
 <clr-datagrid>
-  <clr-dg-column>ID</clr-dg-column>
   <clr-dg-column>Nom</clr-dg-column>
   <clr-dg-column>Description</clr-dg-column>
   <clr-dg-column>Prix</clr-dg-column>
-  <clr-dg-column>Stock</clr-dg-column>
+  <clr-dg-column>En stock</clr-dg-column>
 
-  <clr-dg-row *ngFor="let product of products">
-    <clr-dg-cell>{{product.ProductId}}</clr-dg-cell>
+  <clr-dg-row *clrDgItems="let product of products">
     <clr-dg-cell>{{product.name}}</clr-dg-cell>
-    <clr-dg-cell>{{product.description | date}}</clr-dg-cell>
-    <clr-dg-cell>€ {{product.price}}</clr-dg-cell>
-    <clr-dg-cell>{{product.stock}} en stock</clr-dg-cell>
+    <clr-dg-cell>{{product.description }}</clr-dg-cell>
+    <clr-dg-cell>{{product.price}} €</clr-dg-cell>
+    <clr-dg-cell>{{product.stock}} </clr-dg-cell>
+<!-- Action de crud -->
+    <clr-dg-action-overflow>
+      <button class="action-item" (click)="onEdit(product)">Modifier</button>
+      <button class="action-item" (click)="onDelete(product)">Supprimer</button>
+    </clr-dg-action-overflow>
+
   </clr-dg-row>
 
-  <clr-dg-footer>{{products.length}} Produits</clr-dg-footer>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">Produit par page</clr-dg-page-size>
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Produits
+    </clr-dg-pagination>
+  </clr-dg-footer>
 </clr-datagrid>
